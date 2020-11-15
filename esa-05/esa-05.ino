@@ -25,14 +25,15 @@ void setup() {
 }
 
 void loop() {
+  Serial.println("Lettura dati in corso...");
   for (i = 0; i<STEPS; i++) {
     analogWrite(RAMP_PIN, i);   // incrementa il duty cycle di uno step
     v1[i] = analogRead(AV1);
     v2[i] = analogRead(AV2);
     delay(100);
   }
-  Serial.println("n,V,A");
   
+  Serial.println("n,V,A");
   for (i = 0; i<STEPS; i++) {
     Serial.print(i);
     Serial.print(",");
@@ -42,11 +43,11 @@ void loop() {
   }
   
   analogWrite(RAMP_PIN, 0); // spegne il led
-  
+
+  Serial.println("Tieni premuto il bottone per riavviare.");
   waiting = true;
   while(waiting) {
     delay(1000);
-    Serial.print(".");
     waiting = digitalRead(SB_PIN) == LOW;
   }
 }
